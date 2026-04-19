@@ -56,6 +56,7 @@ export class Validator {
       HowToSection: [() => import('./types/HowToSection.js')],
       HowToDirection: [() => import('./types/HowToDirection.js')],
       HowToTip: [() => import('./types/HowToTip.js')],
+      WebSite: [() => import('./types/WebSite.js')],
     };
   }
 

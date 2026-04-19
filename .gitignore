@@ -12,3 +12,4 @@ fixtures/
 prompts/
 coverage/
 src/local.js
+.idea/*
