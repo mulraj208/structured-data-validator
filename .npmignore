@@ -18,3 +18,4 @@ gallery/
 eslint.config.js
 src/local.js
 license-header.txt
+.idea/
