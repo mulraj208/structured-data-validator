@@ -1,0 +1,20 @@
+{
+  "@context": "https://schema.org",
+  "@type": "NewsMediaOrganization",
+  "name": "The New York Times",
+  "logo": "https://www.nytimes.com/logo.png",
+  "url": "https://www.nytimes.com",
+  "sameAs": [
+    "https://www.facebook.com/nytimes",
+    "https://twitter.com/nytimes"
+  ],
+  "foundingDate": "1851-09-18",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "620 Eighth Avenue",
+    "addressLocality": "New York",
+    "addressRegion": "NY",
+    "postalCode": "10018",
+    "addressCountry": "US"
+  }
+}

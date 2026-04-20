@@ -29,6 +29,7 @@ export class Validator {
       Brand: [() => import('./types/Brand.js')],
       BreadcrumbList: [() => import('./types/BreadcrumbList.js')],
       Certification: [() => import('./types/Certification.js')],
+      Corporation: [() => import('./types/Corporation.js')],
       DefinedRegion: [() => import('./types/DefinedRegion.js')],
       Event: [() => import('./types/Event.js')],
       FAQPage: [() => import('./types/FAQPage.js')],
@@ -43,6 +44,7 @@ export class Validator {
       LocalBusiness: [() => import('./types/LocalBusiness.js')],
       MerchantReturnPolicy: [() => import('./types/MerchantReturnPolicy.js')],
       NewsArticle: [() => import('./types/Article.js')],
+      NewsMediaOrganization: [() => import('./types/NewsMediaOrganization.js')],
       Offer: [() => import('./types/Offer.js')],
       OfferShippingDetails: [() => import('./types/OfferShippingDetails.js')],
       Organization: [() => import('./types/Organization.js')],
@@ -66,6 +68,7 @@ export class Validator {
       HowToSection: [() => import('./types/HowToSection.js')],
       HowToDirection: [() => import('./types/HowToDirection.js')],
       HowToTip: [() => import('./types/HowToTip.js')],
+      WebPage: [() => import('./types/WebPage.js')],
       WebSite: [() => import('./types/WebSite.js')],
     };
   }
