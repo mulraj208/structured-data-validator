@@ -25,13 +25,13 @@ describe('CertificationValidator', () => {
 
     it('should validate a correct certification structure in valid1.json', async () => {
       const data = await loadTestData('Certification/valid1.json', 'jsonld');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(0);
     });
 
     it('should validate a correct certification structure in valid2.json', async () => {
       const data = await loadTestData('Certification/valid2.json', 'jsonld');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(0);
     });
   });

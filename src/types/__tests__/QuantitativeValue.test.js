@@ -28,7 +28,7 @@ describe('QuantitativeValueValidator', () => {
         'QuantitativeValue/unitpricing-valid1.json',
         'jsonld',
       );
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(0);
     });
 
@@ -37,7 +37,7 @@ describe('QuantitativeValueValidator', () => {
         'QuantitativeValue/shipping-valid1.json',
         'jsonld',
       );
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(0);
     });
   });

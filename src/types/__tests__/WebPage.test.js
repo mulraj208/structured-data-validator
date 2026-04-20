@@ -1,5 +1,5 @@
 /**
- * Copyright 2026 Adobe. All rights reserved.
+ * Copyright 2025 Adobe. All rights reserved.
  * This file is licensed to you under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License. You may obtain a copy
  * of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -25,16 +25,16 @@ describe('WebPageValidator', () => {
 
     it('should validate a correct web page', async () => {
       const data = await loadTestData('WebPage/valid.json', 'jsonld');
-      const issues = await validator.validate(data);
-      const errors = issues.filter(i => i.severity === 'ERROR');
+      const issues = (await validator.validate(data)).issues;
+      const errors = issues.filter((i) => i.severity === 'ERROR');
       expect(errors).to.have.lengthOf(0);
     });
 
     it('should detect missing required fields and optional recommendations', async () => {
       const data = await loadTestData('WebPage/invalid.json', 'jsonld');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(4);
-      const messages = issues.map(i => i.issueMessage);
+      const messages = issues.map((i) => i.issueMessage);
       expect(messages).to.contain('Required attribute "@id" is missing');
       expect(messages).to.contain('Required attribute "url" is missing');
       expect(messages).to.contain('Required attribute "name" is missing');

@@ -22,7 +22,7 @@ describe('JobPostingValidator', () => {
 
   it('should validate a correct JobPosting structure in valid1.json', async () => {
     const data = await loadTestData('JobPosting/valid1.json', 'jsonld');
-    const issues = await validator.validate(data);
+    const issues = (await validator.validate(data)).issues;
     const expectedIssues = [
       {
         issueMessage:
@@ -46,7 +46,7 @@ describe('JobPostingValidator', () => {
 
   it('should validate a correct JobPosting structure in valid2.json', async () => {
     const data = await loadTestData('JobPosting/valid2.json', 'jsonld');
-    const issues = await validator.validate(data);
+    const issues = (await validator.validate(data)).issues;
     expect(issues).to.have.lengthOf(1);
     expect(issues[0]).to.deep.include({
       issueMessage: 'Missing field "directApply" (optional)',
@@ -56,7 +56,7 @@ describe('JobPostingValidator', () => {
 
   it('should validate a correct JobPosting structure in valid3.json', async () => {
     const data = await loadTestData('JobPosting/valid3.json', 'jsonld');
-    const issues = await validator.validate(data);
+    const issues = (await validator.validate(data)).issues;
     const expectedWarnings = [
       {
         issueMessage:
@@ -83,7 +83,7 @@ describe('JobPostingValidator', () => {
       'JobPosting/missing-required.json',
       'jsonld',
     );
-    const issues = await validator.validate(data);
+    const issues = (await validator.validate(data)).issues;
     const expectedErrors = [
       {
         issueMessage: 'Required attribute "hiringOrganization" is missing',
@@ -106,7 +106,7 @@ describe('JobPostingValidator', () => {
       'JobPosting/missing-address-country.json',
       'jsonld',
     );
-    const issues = await validator.validate(data);
+    const issues = (await validator.validate(data)).issues;
     const expectedErrors = [
       {
         issueMessage:
@@ -124,7 +124,7 @@ describe('JobPostingValidator', () => {
       'JobPosting/remote-missing-location.json',
       'jsonld',
     );
-    const issues = await validator.validate(data);
+    const issues = (await validator.validate(data)).issues;
     const expectedErrors = [
       {
         issueMessage:
@@ -139,7 +139,7 @@ describe('JobPostingValidator', () => {
 
   it('should validate hybrid jobs', async () => {
     const data = await loadTestData('JobPosting/hybrid-job.json', 'jsonld');
-    const issues = await validator.validate(data);
+    const issues = (await validator.validate(data)).issues;
     const errors = issues.filter((issue) => issue.severity === 'ERROR');
     expect(errors).to.have.lengthOf(0);
   });
@@ -149,7 +149,7 @@ describe('JobPostingValidator', () => {
       'JobPosting/missing-recommended.json',
       'jsonld',
     );
-    const issues = await validator.validate(data);
+    const issues = (await validator.validate(data)).issues;
     const expectedWarnings = [
       {
         issueMessage:

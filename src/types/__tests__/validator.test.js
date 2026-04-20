@@ -45,7 +45,8 @@ describe('Validator', () => {
       ],
     };
 
-    const results = await validator.validate(waeData);
+    const response = await validator.validate(waeData);
+    const results = response.issues;
 
     expect(results).to.have.lengthOf(1);
     expect(results[0]).to.deep.include({
@@ -59,8 +60,8 @@ describe('Validator', () => {
   });
 
   it('should not fail when errors are missing', async () => {
-    const results = await validator.validate({});
-    expect(results).to.have.lengthOf(0);
+    const response = await validator.validate({});
+    expect(response.issues).to.have.lengthOf(0);
   });
 
   it('should print debug information when debug logging is active', async () => {

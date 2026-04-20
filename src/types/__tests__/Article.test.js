@@ -25,7 +25,7 @@ describe('ArticleValidator', () => {
 
     it('should validate a correct Article structure in valid1.json', async () => {
       const data = await loadTestData('Article/valid1.json', 'jsonld');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       const errors = issues.filter((i) => i.severity === 'ERROR');
       expect(errors).to.have.lengthOf(0);
     });
@@ -35,7 +35,7 @@ describe('ArticleValidator', () => {
         'Article/invalid_missing_headline.json',
         'jsonld',
       );
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       const errors = issues.filter((i) => i.severity === 'ERROR');
       expect(errors).to.have.lengthOf(1);
       expect(errors[0]).to.deep.include({

@@ -25,7 +25,7 @@ describe('WebSiteValidator', () => {
 
     it('should validate a correct WebSite structure in valid1.json', async () => {
       const data = await loadTestData('WebSite/valid1.json', 'jsonld');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       const errors = issues.filter((i) => i.severity === 'ERROR');
       expect(errors).to.have.lengthOf(0);
     });
@@ -35,7 +35,7 @@ describe('WebSiteValidator', () => {
         'WebSite/invalid_missing_name.json',
         'jsonld',
       );
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       const errors = issues.filter((i) => i.severity === 'ERROR');
       expect(errors).to.have.lengthOf(1);
       expect(errors[0]).to.deep.include({
@@ -49,7 +49,7 @@ describe('WebSiteValidator', () => {
         'WebSite/invalid_missing_url.json',
         'jsonld',
       );
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       const errors = issues.filter((i) => i.severity === 'ERROR');
       expect(errors).to.have.lengthOf(1);
       expect(errors[0]).to.deep.include({

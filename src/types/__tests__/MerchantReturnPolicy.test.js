@@ -28,7 +28,7 @@ describe('MerchantReturnPolicyValidator', () => {
         'MerchantReturnPolicy/valid1.json',
         'jsonld',
       );
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(0);
     });
 
@@ -37,7 +37,7 @@ describe('MerchantReturnPolicyValidator', () => {
         'MerchantReturnPolicy/valid2.json',
         'jsonld',
       );
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(0);
     });
 
@@ -46,7 +46,7 @@ describe('MerchantReturnPolicyValidator', () => {
         'MerchantReturnPolicy/valid3.json',
         'jsonld',
       );
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       const errors = issues.filter((i) => i.severity === 'ERROR');
       expect(errors).to.have.lengthOf(0);
       const warnings = issues.filter((i) => i.severity === 'WARNING');
@@ -58,7 +58,7 @@ describe('MerchantReturnPolicyValidator', () => {
         'MerchantReturnPolicy/missing-applicableCountry.json',
         'jsonld',
       );
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       const errors = issues.filter((i) => i.severity === 'ERROR');
       expect(errors).to.have.lengthOf(1);
       expect(errors[0]).to.deep.include({

@@ -22,7 +22,7 @@ describe('HowToTipValidator', () => {
 
   it('should validate valid HowToTip with required text field', async () => {
     const data = await loadTestData('HowToTip/valid1.json', 'jsonld');
-    const issues = await validator.validate(data);
+    const issues = (await validator.validate(data)).issues;
     const errors = issues.filter((issue) => issue.severity === 'ERROR');
 
     expect(errors).to.have.lengthOf(0);
@@ -30,7 +30,7 @@ describe('HowToTipValidator', () => {
 
   it('should error when HowToTip is missing required text field', async () => {
     const data = await loadTestData('HowToTip/missing-required.json', 'jsonld');
-    const issues = await validator.validate(data);
+    const issues = (await validator.validate(data)).issues;
     const errors = issues.filter((issue) => issue.severity === 'ERROR');
     const expectedIssues = [
       {

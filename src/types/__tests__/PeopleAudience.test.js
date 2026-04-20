@@ -25,19 +25,19 @@ describe('PeopleAudienceValidator', () => {
 
     it('should validate a correct people audience structure in valid1.json', async () => {
       const data = await loadTestData('PeopleAudience/valid1.json', 'jsonld');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(0);
     });
 
     it('should validate a correct people audience structure in valid2.json', async () => {
       const data = await loadTestData('PeopleAudience/valid2.json', 'jsonld');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(0);
     });
 
     it('should validate a correct people audience structure in valid3.json', async () => {
       const data = await loadTestData('PeopleAudience/valid3.json', 'jsonld');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(0);
     });
   });

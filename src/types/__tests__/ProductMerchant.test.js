@@ -31,7 +31,7 @@ describe('ProductMerchantListValidator', () => {
 
     it('should validate a correct merchant product structure in valid1.json', async () => {
       const data = await loadTestData('ProductMerchant/valid1.json', 'jsonld');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       const errors = issues.filter((i) => i.severity === 'ERROR');
       expect(errors).to.have.lengthOf(0);
       const warnings = issues.filter((i) => i.severity === 'WARNING');
@@ -40,7 +40,7 @@ describe('ProductMerchantListValidator', () => {
 
     it('should validate a correct merchant product structure in valid2.json', async () => {
       const data = await loadTestData('ProductMerchant/valid2.json', 'jsonld');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       const errors = issues.filter((i) => i.severity === 'ERROR');
       expect(errors).to.have.lengthOf(0);
       const warnings = issues.filter((i) => i.severity === 'WARNING');
@@ -49,7 +49,7 @@ describe('ProductMerchantListValidator', () => {
 
     it('should validate a correct merchant product structure in valid3.json', async () => {
       const data = await loadTestData('ProductMerchant/valid3.json', 'jsonld');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       const errors = issues.filter((i) => i.severity === 'ERROR');
       expect(errors).to.have.lengthOf(0);
       const warnings = issues.filter((i) => i.severity === 'WARNING');
@@ -58,7 +58,7 @@ describe('ProductMerchantListValidator', () => {
 
     it('should validate a correct merchant product structure in valid4.json', async () => {
       const data = await loadTestData('ProductMerchant/valid4.json', 'jsonld');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       const errors = issues.filter((i) => i.severity === 'ERROR');
       expect(errors).to.have.lengthOf(0);
       const warnings = issues.filter((i) => i.severity === 'WARNING');
@@ -70,7 +70,7 @@ describe('ProductMerchantListValidator', () => {
         'ProductMerchant/missing-gtin.json',
         'jsonld',
       );
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       const errors = issues.filter((i) => i.severity === 'ERROR');
       expect(errors).to.have.lengthOf(0);
 

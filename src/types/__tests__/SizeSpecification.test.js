@@ -28,7 +28,7 @@ describe('SizeSpecificationValidator', () => {
         'SizeSpecification/valid1.json',
         'jsonld',
       );
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(0);
     });
   });

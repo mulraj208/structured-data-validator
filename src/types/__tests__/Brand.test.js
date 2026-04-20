@@ -25,7 +25,7 @@ describe('BrandValidator', () => {
 
     it('should validate a correct brand structure in valid1.json', async () => {
       const data = await loadTestData('Brand/valid1.json', 'jsonld');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(0);
     });
 
@@ -34,7 +34,7 @@ describe('BrandValidator', () => {
         'Brand/invalid_missing_name.json',
         'jsonld',
       );
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(1);
       expect(issues[0]).to.deep.include({
         severity: 'ERROR',

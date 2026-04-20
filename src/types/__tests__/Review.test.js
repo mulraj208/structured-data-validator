@@ -30,7 +30,7 @@ describe('ReviewValidator', () => {
 
     it('should validate a correct review structure in valid1.json', async () => {
       const data = await loadTestData('Review/valid1.json', 'jsonld');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.deep.equal([]);
     });
 
@@ -39,7 +39,7 @@ describe('ReviewValidator', () => {
         'Review/invalid_missing_author.json',
         'jsonld',
       );
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(1);
       expect(issues[0]).to.deep.include({
         severity: 'ERROR',
@@ -53,7 +53,7 @@ describe('ReviewValidator', () => {
         'Review/invalid_missing_rating_value.json',
         'jsonld',
       );
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(1);
       expect(issues[0]).to.deep.include({
         severity: 'ERROR',
@@ -71,7 +71,7 @@ describe('ReviewValidator', () => {
         'Review/invalid_missing_date_published.json',
         'jsonld',
       );
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(1);
       expect(issues[0]).to.deep.include({
         severity: 'WARNING',
@@ -85,7 +85,7 @@ describe('ReviewValidator', () => {
         'Review/invalid_missing_best_rating.json',
         'jsonld',
       );
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(1);
       expect(issues[0]).to.deep.include({
         severity: 'WARNING',
@@ -103,7 +103,7 @@ describe('ReviewValidator', () => {
         'Review/invalid_rating_out_of_range.json',
         'jsonld',
       );
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(1);
       expect(issues[0]).to.deep.include({
         severity: 'ERROR',
@@ -117,7 +117,7 @@ describe('ReviewValidator', () => {
         'Review/invalid_missing_item_reviewed.json',
         'jsonld',
       );
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(2);
       expect(issues[0]).to.deep.include({
         severity: 'ERROR',
@@ -146,7 +146,7 @@ describe('ReviewValidator', () => {
     // TODO: Needs support for RDFa rel parsing in web-auto-extractor
     it.skip('should validate a correct review structure in rdfa-valid1.html', async () => {
       const data = await loadTestData('Review/rdfa-valid1.html', 'rdfa');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.deep.equal([]);
     });
   });

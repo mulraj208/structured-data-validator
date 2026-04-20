@@ -29,20 +29,20 @@ describe('BreadcrumbListValidator', () => {
 
     it('should validate a correct breadcrumb structure in valid1.json', async () => {
       const data = await loadTestData('Breadcrumb/valid1.json', 'jsonld');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(0);
     });
 
     it('should validate multiple breadcrumb lists in valid2.json', async () => {
       const data = await loadTestData('Breadcrumb/valid2.json', 'jsonld');
       expect(data.jsonld.BreadcrumbList).to.have.lengthOf(2);
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(0);
     });
 
     it('should validate a breadcrumb with a single item as object', async () => {
       const data = await loadTestData('Breadcrumb/valid-single.json', 'jsonld');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       const errors = issues.filter((issue) => issue.severity === 'ERROR');
       const warnings = issues.filter((issue) => issue.severity === 'WARNING');
       expect(errors).to.have.lengthOf(0);
@@ -60,7 +60,7 @@ describe('BreadcrumbListValidator', () => {
         'Breadcrumb/valid-text-position.json',
         'jsonld',
       );
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(1);
       expect(issues[0]).to.deep.include({
         rootType: 'BreadcrumbList',
@@ -84,7 +84,7 @@ describe('BreadcrumbListValidator', () => {
 
     it('should detect missing required attributes in invalid1.json', async () => {
       const data = await loadTestData('Breadcrumb/invalid1.json', 'jsonld');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
 
       expect(issues).to.have.lengthOf(1);
       expect(issues[0]).to.deep.include({
@@ -107,7 +107,7 @@ describe('BreadcrumbListValidator', () => {
 
     it('should detect invalid URL in invalid2.json', async () => {
       const data = await loadTestData('Breadcrumb/invalid2.json', 'jsonld');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
 
       expect(issues).to.have.lengthOf(1);
       expect(issues[0]).to.deep.include({
@@ -129,7 +129,7 @@ describe('BreadcrumbListValidator', () => {
 
     it('should detect missing required attributes in invalid3.json', async () => {
       const data = await loadTestData('Breadcrumb/invalid3.json', 'jsonld');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
 
       expect(issues).to.have.lengthOf(1);
       expect(issues[0]).to.deep.include({
@@ -152,7 +152,7 @@ describe('BreadcrumbListValidator', () => {
 
     it('should detect invalid URLs in invalid4.json', async () => {
       const data = await loadTestData('Breadcrumb/invalid4.json', 'jsonld');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
 
       expect(issues).to.have.lengthOf(2);
       const error = {
@@ -188,7 +188,7 @@ describe('BreadcrumbListValidator', () => {
 
     it('should detect missing required attributes in invalid5.json', async () => {
       const data = await loadTestData('Breadcrumb/invalid5.json', 'jsonld');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
 
       expect(issues).to.have.lengthOf(1);
       expect(issues[0]).to.deep.include({
@@ -201,7 +201,7 @@ describe('BreadcrumbListValidator', () => {
 
     it('should detect a missing URL in invalid6.json', async () => {
       const data = await loadTestData('Breadcrumb/invalid6.json', 'jsonld');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
 
       expect(issues).to.have.lengthOf(1);
       expect(issues[0]).to.deep.include({
@@ -240,7 +240,7 @@ describe('BreadcrumbListValidator', () => {
         'Breadcrumb/microdata-valid1.html',
         'microdata',
       );
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(0);
     });
 
@@ -250,7 +250,7 @@ describe('BreadcrumbListValidator', () => {
         'microdata',
       );
       expect(data.microdata.BreadcrumbList).to.have.lengthOf(2);
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(0);
     });
 
@@ -259,7 +259,7 @@ describe('BreadcrumbListValidator', () => {
         'Breadcrumb/microdata-invalid1.html',
         'microdata',
       );
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(1);
       expect(issues[0]).to.deep.include({
         issueMessage:
@@ -274,7 +274,7 @@ describe('BreadcrumbListValidator', () => {
         'Breadcrumb/microdata-invalid2.html',
         'microdata',
       );
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(1);
       expect(issues[0]).to.deep.include({
         issueMessage: 'Invalid URL in field "item"',
@@ -288,7 +288,7 @@ describe('BreadcrumbListValidator', () => {
         'Breadcrumb/microdata-invalid3.html',
         'microdata',
       );
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(1);
       expect(issues[0]).to.deep.include({
         issueMessage:
@@ -304,7 +304,7 @@ describe('BreadcrumbListValidator', () => {
         'Breadcrumb/microdata-invalid4.html',
         'microdata',
       );
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(0);
     });
 
@@ -313,7 +313,7 @@ describe('BreadcrumbListValidator', () => {
         'Breadcrumb/microdata-invalid5.html',
         'microdata',
       );
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(1);
       expect(issues[0]).to.deep.include({
         issueMessage: 'Required attribute "itemListElement" is missing',
@@ -338,20 +338,20 @@ describe('BreadcrumbListValidator', () => {
 
     it('should validate a correct breadcrumb structure in rdfa-valid1.html', async () => {
       const data = await loadTestData('Breadcrumb/rdfa-valid1.html', 'rdfa');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(0);
     });
 
     it('should validate multiple breadcrumb lists in rdfa-valid1.html', async () => {
       const data = await loadTestData('Breadcrumb/rdfa-valid2.html', 'rdfa');
       expect(data.rdfa.BreadcrumbList).to.have.lengthOf(2);
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(0);
     });
 
     it('should detect missing required attributes in rdfa-invalid1.html', async () => {
       const data = await loadTestData('Breadcrumb/rdfa-invalid1.html', 'rdfa');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(1);
       expect(issues[0]).to.deep.include({
         issueMessage:
@@ -363,7 +363,7 @@ describe('BreadcrumbListValidator', () => {
 
     it('should detect invalid URL in rdfa-invalid2.html', async () => {
       const data = await loadTestData('Breadcrumb/rdfa-invalid2.html', 'rdfa');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(1);
       expect(issues[0]).to.deep.include({
         issueMessage: 'Invalid URL in field "item.@id"',
@@ -374,7 +374,7 @@ describe('BreadcrumbListValidator', () => {
 
     it('should detect required attributes in rdfa-invalid3.html', async () => {
       const data = await loadTestData('Breadcrumb/rdfa-invalid3.html', 'rdfa');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(1);
       expect(issues[0]).to.deep.include({
         issueMessage:
@@ -387,7 +387,7 @@ describe('BreadcrumbListValidator', () => {
     it('should detect invalid URLs in rdfa-invalid4.html', async () => {
       // This behaviour is unique to RDFa.
       const data = await loadTestData('Breadcrumb/rdfa-invalid4.html', 'rdfa');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(1);
       expect(issues[0]).to.deep.include({
         issueMessage: 'Invalid URL in field "item.@id"',
@@ -398,7 +398,7 @@ describe('BreadcrumbListValidator', () => {
 
     it('should detect missing field in rdfa-invalid5.html', async () => {
       const data = await loadTestData('Breadcrumb/rdfa-invalid5.html', 'rdfa');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(1);
       expect(issues[0]).to.deep.include({
         issueMessage: 'Required attribute "itemListElement" is missing',

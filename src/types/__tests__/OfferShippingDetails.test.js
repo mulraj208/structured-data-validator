@@ -32,7 +32,7 @@ describe('OfferShippingDetailsValidator', () => {
         'OfferShippingDetails/valid1.json',
         'jsonld',
       );
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(0);
     });
 
@@ -41,7 +41,7 @@ describe('OfferShippingDetailsValidator', () => {
         'OfferShippingDetails/valid2.json',
         'jsonld',
       );
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(0);
     });
   });

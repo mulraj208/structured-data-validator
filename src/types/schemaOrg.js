@@ -44,8 +44,18 @@ export default class SchemaOrgValidator {
     SchemaOrgValidator.schemaCache = new Promise((resolve) => {
       const schema = {};
 
+      if (!this.schemaOrgJson || typeof this.schemaOrgJson !== 'object') {
+        resolve(schema);
+        return;
+      }
+
       // Get all types
       const entites = this.schemaOrgJson['@graph'];
+      if (!entites || !Array.isArray(entites)) {
+        resolve(schema);
+        return;
+      }
+
       entites
         .filter((entity) => entity['@type'] === 'rdfs:Class')
         .forEach((type) => {

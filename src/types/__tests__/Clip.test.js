@@ -22,13 +22,13 @@ describe('ClipValidator', () => {
 
   it('should validate a correct Clip structure in valid1.json', async () => {
     const data = await loadTestData('Clip/valid1.json', 'jsonld');
-    const issues = await validator.validate(data);
+    const issues = (await validator.validate(data)).issues;
     expect(issues).to.have.lengthOf(0);
   });
 
   it('should report error for missing required fields', async () => {
     const data = await loadTestData('Clip/missing-required.json', 'jsonld');
-    const issues = await validator.validate(data);
+    const issues = (await validator.validate(data)).issues;
     const errors = issues.filter((issue) => issue.severity === 'ERROR');
     const expectedErrors = [
       {
@@ -52,7 +52,7 @@ describe('ClipValidator', () => {
 
   it('should warn if recommended endOffset is missing', async () => {
     const data = await loadTestData('Clip/missing-endOffset.json', 'jsonld');
-    const issues = await validator.validate(data);
+    const issues = (await validator.validate(data)).issues;
     const warnings = issues.filter((issue) => issue.severity === 'WARNING');
     expect(warnings.some((w) => w.issueMessage.includes('endOffset'))).to.be
       .true;
@@ -60,7 +60,7 @@ describe('ClipValidator', () => {
 
   it('should not warn if endOffset is present', async () => {
     const data = await loadTestData('Clip/with-endOffset.json', 'jsonld');
-    const issues = await validator.validate(data);
+    const issues = (await validator.validate(data)).issues;
     const warnings = issues.filter((issue) => issue.severity === 'WARNING');
     expect(warnings.some((w) => w.issueMessage.includes('endOffset'))).to.be
       .false;

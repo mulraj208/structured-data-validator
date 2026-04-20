@@ -31,31 +31,31 @@ describe('ProductValidator', () => {
 
     it('should validate a correct product structure in valid1.json', async () => {
       const data = await loadTestData('Product/valid1.json', 'jsonld');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(0);
     });
 
     it('should validate a correct product structure in valid2.json', async () => {
       const data = await loadTestData('Product/valid2.json', 'jsonld');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(0);
     });
 
     it('should validate a correct product structure in valid3.json', async () => {
       const data = await loadTestData('Product/valid3.json', 'jsonld');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(0);
     });
 
     it('should validate a correct product structure in valid4.json', async () => {
       const data = await loadTestData('Product/valid4.json', 'jsonld');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(0);
     });
 
     it('should show warnings for recommended fields in only_offers.json', async () => {
       const data = await loadTestData('Product/only_offers.json', 'jsonld');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(2);
       expect(issues[0]).to.deep.include({
         issueMessage: 'Missing field "aggregateRating" (optional)',
@@ -71,7 +71,7 @@ describe('ProductValidator', () => {
 
     it('should detect missing name in missing_name.json', async () => {
       const data = await loadTestData('Product/missing_name.json', 'jsonld');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(1);
       expect(issues[0]).to.deep.include({
         issueMessage: 'Required attribute "name" is missing',
@@ -85,7 +85,7 @@ describe('ProductValidator', () => {
         'Product/no_rating_review_offers.json',
         'jsonld',
       );
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(1);
       expect(issues[0]).to.deep.include({
         issueMessage:
@@ -101,7 +101,7 @@ describe('ProductValidator', () => {
         'Product/review_single_note.json',
         'jsonld',
       );
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(1);
       expect(issues[0]).to.deep.include({
         issueMessage:
@@ -114,7 +114,7 @@ describe('ProductValidator', () => {
 
     it('should detect missing price in offer_no_price.json', async () => {
       const data = await loadTestData('Product/offer_no_price.json', 'jsonld');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(1);
       expect(issues[0]).to.deep.include({
         issueMessage:
@@ -133,7 +133,7 @@ describe('ProductValidator', () => {
         'Product/offer_no_currency.json',
         'jsonld',
       );
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(1);
       expect(issues[0]).to.deep.include({
         issueMessage:
@@ -152,7 +152,7 @@ describe('ProductValidator', () => {
         'Product/offer_no_availability.json',
         'jsonld',
       );
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(1);
       expect(issues[0]).to.deep.include({
         issueMessage: 'Missing field "availability" (optional)',
@@ -170,7 +170,7 @@ describe('ProductValidator', () => {
         'Product/offer_invalid_date.json',
         'jsonld',
       );
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(1);
       expect(issues[0]).to.deep.include({
         issueMessage: 'Invalid type for attribute "priceValidUntil"',
@@ -188,7 +188,7 @@ describe('ProductValidator', () => {
         'Product/aggregate_offer_no_low_price.json',
         'jsonld',
       );
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(1);
       expect(issues[0]).to.deep.include({
         issueMessage: 'Required attribute "lowPrice" is missing',
@@ -206,7 +206,7 @@ describe('ProductValidator', () => {
         'Product/aggregate_offer_no_currency.json',
         'jsonld',
       );
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(1);
       expect(issues[0]).to.deep.include({
         issueMessage: 'Required attribute "priceCurrency" is missing',
@@ -224,7 +224,7 @@ describe('ProductValidator', () => {
         'Product/aggregate_offer_no_high_price.json',
         'jsonld',
       );
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(1);
       expect(issues[0]).to.deep.include({
         issueMessage: 'Missing field "highPrice" (optional)',
@@ -242,7 +242,7 @@ describe('ProductValidator', () => {
         'Product/aggregate_offer_no_count.json',
         'jsonld',
       );
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(1);
       expect(issues[0]).to.deep.include({
         issueMessage: 'Missing field "offerCount" (optional)',
@@ -257,7 +257,7 @@ describe('ProductValidator', () => {
 
     it('should detect missing rating count in rating_no_count.json', async () => {
       const data = await loadTestData('Product/rating_no_count.json', 'jsonld');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(1);
       expect(issues[0]).to.deep.include({
         issueMessage:
@@ -282,7 +282,7 @@ describe('ProductValidator', () => {
         'Product/non_product_with_offer.json',
         'jsonld',
       );
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       const errors = issues.filter((i) => i.severity === 'ERROR');
       expect(errors).to.have.lengthOf(0);
     });
@@ -292,7 +292,7 @@ describe('ProductValidator', () => {
         'Product/offer_with_no_parent.json',
         'jsonld',
       );
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       const errors = issues.filter((i) => i.severity === 'ERROR');
       expect(errors).to.have.lengthOf(0);
     });

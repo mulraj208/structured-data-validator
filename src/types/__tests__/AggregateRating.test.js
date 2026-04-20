@@ -30,7 +30,7 @@ describe('AggregateRatingValidator', () => {
 
     it('should validate a correct aggregateRating structure in valid1.json', async () => {
       const data = await loadTestData('AggregateRating/valid1.json', 'jsonld');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(0);
     });
 
@@ -39,7 +39,7 @@ describe('AggregateRatingValidator', () => {
         'AggregateRating/invalid_missing_counts.json',
         'jsonld',
       );
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues[0]).to.deep.include({
         severity: 'ERROR',
         location: '35,246',
@@ -53,7 +53,7 @@ describe('AggregateRatingValidator', () => {
         'AggregateRating/invalid_missing_rating_value.json',
         'jsonld',
       );
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues[0]).to.deep.include({
         severity: 'ERROR',
         location: '35,245',
@@ -66,7 +66,7 @@ describe('AggregateRatingValidator', () => {
         'AggregateRating/invalid_rating_out_of_range.json',
         'jsonld',
       );
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues[0]).to.deep.include({
         severity: 'ERROR',
         location: '35,267',
@@ -79,7 +79,7 @@ describe('AggregateRatingValidator', () => {
         'AggregateRating/invalid_missing_item_reviewed.json',
         'jsonld',
       );
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(2);
       expect(issues[0]).to.deep.include({
         severity: 'ERROR',

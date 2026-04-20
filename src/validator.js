@@ -264,6 +264,8 @@ export class Validator {
     const dataFormats = ['jsonld', 'microdata', 'rdfa'];
 
     const results = [];
+    const schema_data = [];
+    let total_blocks = 0;
 
     for (const dataFormat of dataFormats) {
       if (
@@ -282,6 +284,9 @@ export class Validator {
 
         // Validate each root type item
         for (const [index, item] of rootTypeItems.entries()) {
+          total_blocks++;
+          schema_data.push({ ...item });
+
           const location = item['@location'];
           delete item['@location'];
 
@@ -325,6 +330,10 @@ export class Validator {
       results.push(result);
     }
 
-    return results;
+    return {
+      issues: results,
+      total_blocks,
+      schema_data,
+    };
   }
 }

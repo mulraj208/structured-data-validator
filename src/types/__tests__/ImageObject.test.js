@@ -25,33 +25,33 @@ describe('ImageObjectValidator', () => {
 
     it('should validate a correct image object structure in valid1.json', async () => {
       const data = await loadTestData('ImageObject/valid1.json', 'jsonld');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(0);
     });
 
     it('should validate a correct image object structure in valid2.json', async () => {
       const data = await loadTestData('ImageObject/valid2.json', 'jsonld');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       const errors = issues.filter((issue) => issue.severity === 'ERROR');
       expect(errors).to.have.lengthOf(0);
     });
 
     it('should ignore additional fields on nested image objects', async () => {
       const data = await loadTestData('ImageObject/nested.json', 'jsonld');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(0);
     });
 
     it('should allow relative URLs', async () => {
       const data = await loadTestData('ImageObject/valid3.json', 'jsonld');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       const errors = issues.filter((issue) => issue.severity === 'ERROR');
       expect(errors).to.have.lengthOf(0);
     });
 
     it('should not allow data: URLs', async () => {
       const data = await loadTestData('ImageObject/dataUrl.json', 'jsonld');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       const errors = issues.filter((issue) => issue.severity === 'ERROR');
       expect(errors).to.have.lengthOf(1);
       expect(errors[0]).to.deep.include({
@@ -73,7 +73,7 @@ describe('ImageObjectValidator', () => {
         'ImageObject/content-url-array.json',
         'jsonld',
       );
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(0);
     });
   });

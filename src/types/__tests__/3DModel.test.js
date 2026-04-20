@@ -25,7 +25,7 @@ describe('3DModelValidator', () => {
 
     it('should validate a correct 3DModel structure in valid1.json', async () => {
       const data = await loadTestData('3DModel/valid1.json', 'jsonld');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(0);
     });
   });

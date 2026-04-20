@@ -28,7 +28,7 @@ describe('PriceSpecificationValidator', () => {
         'PriceSpecification/valid1.json',
         'jsonld',
       );
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(0);
     });
 
@@ -37,7 +37,7 @@ describe('PriceSpecificationValidator', () => {
         'PriceSpecification/valid2.json',
         'jsonld',
       );
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(0);
     });
 
@@ -46,7 +46,7 @@ describe('PriceSpecificationValidator', () => {
         'PriceSpecification/invalid1.json',
         'jsonld',
       );
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
 
       expect(issues).to.have.lengthOf(1);
       expect(issues[0]).to.deep.include({
@@ -61,7 +61,7 @@ describe('PriceSpecificationValidator', () => {
         'PriceSpecification/invalid2.json',
         'jsonld',
       );
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
 
       expect(issues).to.have.lengthOf(1);
       expect(issues[0]).to.deep.include({

@@ -32,7 +32,7 @@ describe('VideoObjectValidator', () => {
       },
     ];
     const data = await loadTestData('VideoObject/valid1.json', 'jsonld');
-    const issues = await validator.validate(data);
+    const issues = (await validator.validate(data)).issues;
     expect(issues).to.have.lengthOf(2);
     expect(issues[0]).to.deep.include(warnings[0]);
     expect(issues[1]).to.deep.include(warnings[1]);
@@ -43,7 +43,7 @@ describe('VideoObjectValidator', () => {
       'VideoObject/missing-required.json',
       'jsonld',
     );
-    const issues = await validator.validate(data);
+    const issues = (await validator.validate(data)).issues;
     const errors = issues.filter((issue) => issue.severity === 'ERROR');
     const expectedErrors = [
       {
@@ -65,7 +65,7 @@ describe('VideoObjectValidator', () => {
       'VideoObject/missing-content-embed.json',
       'jsonld',
     );
-    const issues = await validator.validate(data);
+    const issues = (await validator.validate(data)).issues;
     const warnings = issues.filter((issue) => issue.severity === 'WARNING');
     expect(warnings).to.have.lengthOf(1);
     expect(warnings[0]).to.deep.include({
@@ -80,20 +80,20 @@ describe('VideoObjectValidator', () => {
       'VideoObject/with-contentUrl.json',
       'jsonld',
     );
-    const issues = await validator.validate(data);
+    const issues = (await validator.validate(data)).issues;
     const warnings = issues.filter((issue) => issue.severity === 'WARNING');
     expect(warnings).to.have.lengthOf(0);
   });
 
   it('should validate a correct VideoObject structure in valid2.json with no warnings or errors', async () => {
     const data = await loadTestData('VideoObject/valid2.json', 'jsonld');
-    const issues = await validator.validate(data);
+    const issues = (await validator.validate(data)).issues;
     expect(issues).to.have.lengthOf(0);
   });
 
   it('should validate a correct VideoObject structure in valid3.json', async () => {
     const data = await loadTestData('VideoObject/valid3.json', 'jsonld');
-    const issues = await validator.validate(data);
+    const issues = (await validator.validate(data)).issues;
     const expectedIssues = [
       {
         issueMessage: 'Missing field "expires" (optional)',
@@ -117,7 +117,7 @@ describe('VideoObjectValidator', () => {
 
   it('should validate a correct VideoObject structure in valid4.json', async () => {
     const data = await loadTestData('VideoObject/valid4.json', 'jsonld');
-    const issues = await validator.validate(data);
+    const issues = (await validator.validate(data)).issues;
     const expectedIssues = [
       {
         issueMessage: 'Missing field "duration" (optional)',

@@ -25,7 +25,7 @@ describe('HowToStepValidator', () => {
       'HowToStep/valid-with-itemlist.json',
       'jsonld',
     );
-    const issues = await validator.validate(data);
+    const issues = (await validator.validate(data)).issues;
     const errors = issues.filter((issue) => issue.severity === 'ERROR');
 
     expect(errors).to.have.lengthOf(0);
@@ -36,7 +36,7 @@ describe('HowToStepValidator', () => {
       'HowToStep/missing-required.json',
       'jsonld',
     );
-    const issues = await validator.validate(data);
+    const issues = (await validator.validate(data)).issues;
     const errors = issues.filter((issue) => issue.severity === 'ERROR');
 
     const expectedIssue = {
@@ -54,7 +54,7 @@ describe('HowToStepValidator', () => {
       'HowToStep/missing-recommended.json',
       'jsonld',
     );
-    const issues = await validator.validate(data);
+    const issues = (await validator.validate(data)).issues;
     const warnings = issues.filter((issue) => issue.severity === 'WARNING');
 
     const expectedIssues = [
@@ -91,7 +91,7 @@ describe('HowToStepValidator', () => {
       'HowToStep/text-and-itemlist.json',
       'jsonld',
     );
-    const issues = await validator.validate(data);
+    const issues = (await validator.validate(data)).issues;
     const errors = issues.filter((issue) => issue.severity === 'ERROR');
 
     expect(errors).to.have.lengthOf(0);
@@ -102,7 +102,7 @@ describe('HowToStepValidator', () => {
       'HowToStep/invalid-direction-missing-text.json',
       'jsonld',
     );
-    const issues = await validator.validate(data);
+    const issues = (await validator.validate(data)).issues;
     const errors = issues.filter((issue) => issue.severity === 'ERROR');
 
     const expectedIssues = [

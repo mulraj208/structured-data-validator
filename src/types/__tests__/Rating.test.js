@@ -25,7 +25,7 @@ describe('RatingValidator', () => {
 
     it('should validate a rating with a percentage value', async () => {
       const data = await loadTestData('/Rating/percentage.json', 'jsonld');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.deep.equal([]);
     });
 
@@ -43,7 +43,7 @@ describe('RatingValidator', () => {
           ],
         },
       };
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(1);
       expect(issues[0]).to.deep.include({
         issueMessage: 'Rating is outside the specified or default range',

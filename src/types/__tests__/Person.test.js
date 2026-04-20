@@ -25,13 +25,13 @@ describe('PersonValidator', () => {
 
     it('should validate a correct person', async () => {
       const data = await loadTestData('Person/valid.json', 'jsonld');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(0);
     });
 
     it('should detect a missing name', async () => {
       const data = await loadTestData('Person/invalid.json', 'jsonld');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(1);
       expect(issues[0]).to.deep.include({
         rootType: 'Person',

@@ -25,13 +25,13 @@ describe('DefinedRegionValidator', () => {
 
     it('should validate a correct defined region structure in valid1.json', async () => {
       const data = await loadTestData('DefinedRegion/valid1.json', 'jsonld');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(0);
     });
 
     it('should validate a correct defined region structure in valid2.json', async () => {
       const data = await loadTestData('DefinedRegion/valid2.json', 'jsonld');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(0);
     });
 
@@ -40,7 +40,7 @@ describe('DefinedRegionValidator', () => {
         'DefinedRegion/invalid_both_region_and_postal_code.json',
         'jsonld',
       );
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(1);
       expect(issues[0]).to.deep.include({
         severity: 'WARNING',

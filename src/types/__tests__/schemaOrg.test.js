@@ -112,7 +112,7 @@ describe('Schema.org Validator', () => {
       it(`should do a schema.org validation on ${file}`, async () => {
         const data = await loadTestData(file, 'jsonld');
 
-        const issues = await validator.validate(data);
+        const issues = (await validator.validate(data)).issues;
         expect(issues).to.have.lengthOf(0);
       });
     });
@@ -123,7 +123,7 @@ describe('Schema.org Validator', () => {
         'jsonld',
       );
 
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(1);
       expect(issues[0]).to.deep.include({
         issueMessage:
@@ -142,7 +142,7 @@ describe('Schema.org Validator', () => {
         'jsonld',
       );
 
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
 
       expect(issues).to.have.lengthOf(1);
       expect(issues[0]).to.deep.include({
@@ -168,7 +168,7 @@ describe('Schema.org Validator', () => {
     it('should return an error if an invalid type was detected', async () => {
       const data = await loadTestData('Product/invalid_type.json', 'jsonld');
 
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
 
       expect(issues).to.have.lengthOf(1);
       expect(issues[0]).to.deep.include({
@@ -189,7 +189,7 @@ describe('Schema.org Validator', () => {
         'microdata',
       );
 
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(0);
     });
   });
@@ -198,7 +198,7 @@ describe('Schema.org Validator', () => {
     it('should do a schema.org validation on BreadcrumbList', async () => {
       const data = await loadTestData('Breadcrumb/rdfa-valid1.html', 'rdfa');
 
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(0);
     });
   });

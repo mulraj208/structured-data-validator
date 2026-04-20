@@ -25,14 +25,14 @@ describe('EventValidator', () => {
 
     it('should validate a correct Event structure in valid1.json', async () => {
       const data = await loadTestData('Event/valid1.json', 'jsonld');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       const errors = issues.filter((i) => i.severity === 'ERROR');
       expect(errors).to.have.lengthOf(0);
     });
 
     it('should validate an online Event in valid_online.json', async () => {
       const data = await loadTestData('Event/valid_online.json', 'jsonld');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       const errors = issues.filter((i) => i.severity === 'ERROR');
       expect(errors).to.have.lengthOf(0);
     });
@@ -42,7 +42,7 @@ describe('EventValidator', () => {
         'Event/invalid_missing_name.json',
         'jsonld',
       );
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       const errors = issues.filter((i) => i.severity === 'ERROR');
       expect(errors.length).to.be.greaterThan(0);
       expect(errors[0]).to.deep.include({
@@ -56,7 +56,7 @@ describe('EventValidator', () => {
         'Event/invalid_missing_location.json',
         'jsonld',
       );
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       const errors = issues.filter((i) => i.severity === 'ERROR');
       expect(errors).to.have.lengthOf(1);
       expect(errors[0]).to.deep.include({

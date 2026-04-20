@@ -22,7 +22,7 @@ describe('BroadcastEventValidator', () => {
 
   it('should validate a correct BroadcastEvent structure in valid1.json', async () => {
     const data = await loadTestData('BroadcastEvent/valid1.json', 'jsonld');
-    const issues = await validator.validate(data);
+    const issues = (await validator.validate(data)).issues;
     expect(issues).to.have.lengthOf(0);
   });
 
@@ -31,7 +31,7 @@ describe('BroadcastEventValidator', () => {
       'BroadcastEvent/missing-isLiveBroadcast.json',
       'jsonld',
     );
-    const issues = await validator.validate(data);
+    const issues = (await validator.validate(data)).issues;
     const errors = issues.filter((issue) => issue.severity === 'ERROR');
     expect(errors).to.have.lengthOf(1);
     expect(errors[0]).to.deep.include({
@@ -45,7 +45,7 @@ describe('BroadcastEventValidator', () => {
       'BroadcastEvent/missing-endDate.json',
       'jsonld',
     );
-    const issues = await validator.validate(data);
+    const issues = (await validator.validate(data)).issues;
     const errors = issues.filter((issue) => issue.severity === 'ERROR');
     expect(errors).to.have.lengthOf(1);
     expect(errors[0]).to.deep.include({
@@ -59,7 +59,7 @@ describe('BroadcastEventValidator', () => {
       'BroadcastEvent/missing-startDate.json',
       'jsonld',
     );
-    const issues = await validator.validate(data);
+    const issues = (await validator.validate(data)).issues;
     const errors = issues.filter((issue) => issue.severity === 'ERROR');
     expect(errors).to.have.lengthOf(1);
     expect(errors[0]).to.deep.include({

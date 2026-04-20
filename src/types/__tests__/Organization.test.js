@@ -25,13 +25,13 @@ describe('OrganizationValidator', () => {
 
     it('should validate a correct organization', async () => {
       const data = await loadTestData('Organization/valid.json', 'jsonld');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(0);
     });
 
     it('should detect a missing name', async () => {
       const data = await loadTestData('Organization/invalid.json', 'jsonld');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(1);
       expect(issues[0]).to.deep.include({
         rootType: 'Organization',
@@ -43,7 +43,7 @@ describe('OrganizationValidator', () => {
 
     it('should validate an organization with multiple types', async () => {
       const data = await loadTestData('Organization/multi-type.json', 'jsonld');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(0);
     });
   });

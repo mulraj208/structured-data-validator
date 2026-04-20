@@ -22,7 +22,7 @@ describe('HowToDirectionValidator', () => {
 
   it('should validate valid HowToDirection with required text field', async () => {
     const data = await loadTestData('HowToDirection/valid1.json', 'jsonld');
-    const issues = await validator.validate(data);
+    const issues = (await validator.validate(data)).issues;
     const errors = issues.filter((issue) => issue.severity === 'ERROR');
 
     expect(errors).to.have.lengthOf(0);
@@ -33,7 +33,7 @@ describe('HowToDirectionValidator', () => {
       'HowToDirection/missing-required.json',
       'jsonld',
     );
-    const issues = await validator.validate(data);
+    const issues = (await validator.validate(data)).issues;
     const errors = issues.filter((issue) => issue.severity === 'ERROR');
     const expectedIssues = [
       {

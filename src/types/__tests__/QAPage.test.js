@@ -25,7 +25,7 @@ describe('QAPageValidator', () => {
 
     it('should validate a correct QAPage structure with acceptedAnswer', async () => {
       const data = await loadTestData('QAPage/valid1.json', 'jsonld');
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       const errors = issues.filter((i) => i.severity === 'ERROR');
       expect(errors).to.have.lengthOf(0);
     });
@@ -35,7 +35,7 @@ describe('QAPageValidator', () => {
         'QAPage/valid_suggested_only.json',
         'jsonld',
       );
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       const errors = issues.filter((i) => i.severity === 'ERROR');
       expect(errors).to.have.lengthOf(0);
     });
@@ -45,7 +45,7 @@ describe('QAPageValidator', () => {
         'QAPage/invalid_missing_mainEntity.json',
         'jsonld',
       );
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       const errors = issues.filter((i) => i.severity === 'ERROR');
       // 2 errors: mainEntity missing + mainEntity.answerCount missing
       expect(errors).to.have.lengthOf(2);
@@ -64,7 +64,7 @@ describe('QAPageValidator', () => {
         'QAPage/invalid_missing_answerCount.json',
         'jsonld',
       );
-      const issues = await validator.validate(data);
+      const issues = (await validator.validate(data)).issues;
       const errors = issues.filter((i) => i.severity === 'ERROR');
       expect(errors).to.have.lengthOf(1);
       expect(errors[0]).to.deep.include({

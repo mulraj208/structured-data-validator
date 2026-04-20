@@ -1,5 +1,5 @@
 /**
- * Copyright 2026 Adobe. All rights reserved.
+ * Copyright 2025 Adobe. All rights reserved.
  * This file is licensed to you under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License. You may obtain a copy
  * of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -24,16 +24,22 @@ describe('NewsMediaOrganizationValidator', () => {
     });
 
     it('should validate a correct news media organization', async () => {
-      const data = await loadTestData('NewsMediaOrganization/valid.json', 'jsonld');
-      const issues = await validator.validate(data);
+      const data = await loadTestData(
+        'NewsMediaOrganization/valid.json',
+        'jsonld',
+      );
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(0);
     });
 
     it('should detect missing required fields and optional recommendations', async () => {
-      const data = await loadTestData('NewsMediaOrganization/invalid.json', 'jsonld');
-      const issues = await validator.validate(data);
+      const data = await loadTestData(
+        'NewsMediaOrganization/invalid.json',
+        'jsonld',
+      );
+      const issues = (await validator.validate(data)).issues;
       expect(issues).to.have.lengthOf(6);
-      const messages = issues.map(i => i.issueMessage);
+      const messages = issues.map((i) => i.issueMessage);
       expect(messages).to.contain('Required attribute "name" is missing');
       expect(messages).to.contain('Required attribute "logo" is missing');
       expect(messages).to.contain('Required attribute "url" is missing');
